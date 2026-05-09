@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — Muazzim Mansor Sanusi</title>
+    <link rel="icon" type="image/png" href="/logo-dark.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #0a0a0a;
+        --text: #ffffff;
+        --text-dim: rgba(255, 255, 255, 0.4);
+        --border: rgba(255, 255, 255, 0.1);
+      }
+      :root.light {
+        --bg: #f5f5f0;
+        --text: #0a0a0a;
+        --text-dim: rgba(0, 0, 0, 0.4);
+        --border: rgba(0, 0, 0, 0.1);
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html {
+        font-family: 'Space Mono', 'Courier New', monospace;
+        font-size: 16px;
+        background-color: var(--bg);
+        color: var(--text);
+        height: 100%;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+        letter-spacing: 0.04em;
+        padding-bottom: 5rem;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: auto;
+      }
+      .site-logo {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        text-decoration: none;
+      }
+      .site-logo img { height: 48px; width: auto; display: block; }
+      :root:not(.light) .logo-light { display: none; }
+      :root.light .logo-dark { display: none; }
+
+      main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 4rem 0;
+      }
+      .error-code {
+        font-size: 120px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        color: var(--text);
+        margin-bottom: 1rem;
+      }
+      .error-label {
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-dim);
+        margin-bottom: 0.5rem;
+      }
+      .error-message {
+        font-size: 24px;
+        color: var(--text-dim);
+        letter-spacing: 0.04em;
+        margin-bottom: 3rem;
+      }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text);
+        text-decoration: none;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 2px;
+        transition: opacity 0.15s ease;
+      }
+      .back-link:hover { opacity: 0.5; }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        padding: 0;
+        background-color: color-mix(in srgb, var(--bg) 50%, transparent);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        backdrop-filter: blur(20px) saturate(180%);
+        border-top: 1px solid var(--border);
+        z-index: 50;
+      }
+      .footer-left { display: flex; align-items: center; }
+      #theme-toggle {
+        background: none;
+        border: none;
+        color: var(--text);
+        font-size: 22px;
+        cursor: pointer;
+        padding: 16px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.15s ease, transform 0.4s ease;
+        font-family: inherit;
+      }
+      #theme-toggle:hover { transform: rotate(180deg); }
+      .footer-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 2rem;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        text-decoration: none;
+        background-color: var(--text);
+        color: var(--bg);
+        transition: opacity 0.15s ease;
+        font-family: inherit;
+      }
+      .footer-cta:hover { opacity: 0.85; }
+
+      @media (max-width: 1024px) {
+        .error-code { font-size: 72px; }
+        .error-message { font-size: 16px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="site-logo">
+        <img class="logo-dark" src="/logo-dark.png" alt="Muazzim logo" />
+        <img class="logo-light" src="/logo-light.webp" alt="Muazzim logo" />
+      </a>
+    </header>
+
+    <main>
+      <p class="error-label">Error</p>
+      <h1 class="error-code">404</h1>
+      <p class="error-message">This page doesn't exist.</p>
+      <a href="/" class="back-link">← Back to home</a>
+    </main>
+
+    <footer>
+      <div class="footer-left">
+        <button id="theme-toggle" aria-label="Toggle theme">◐</button>
+      </div>
+      <a href="https://cal.com/muazzim/intro" target="_blank" rel="noopener" class="footer-cta">Let's Talk</a>
+    </footer>
+
+    <script>
+      const btn = document.getElementById('theme-toggle')
+      const html = document.documentElement
+      function applyTheme(t) {
+        t === 'light' ? html.classList.add('light') : html.classList.remove('light')
+      }
+      applyTheme(localStorage.getItem('theme') || 'light')
+      btn.addEventListener('click', () => {
+        const next = html.classList.contains('light') ? 'dark' : 'light'
+        applyTheme(next)
+        localStorage.setItem('theme', next)
+      })
+    </script>
+  </body>
+</html>
