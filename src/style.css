@@ -221,7 +221,22 @@ main {
   border-bottom: 1px solid var(--border);
   text-decoration: none;
   color: inherit;
-  transition: opacity 0.15s ease;
+  position: relative;
+  transition: padding 0.25s ease, opacity 0.15s ease;
+}
+
+.experience-item .item-logo,
+.experience-item .item-logo-fallback {
+  transition: transform 0.25s ease;
+}
+
+a.experience-item:hover {
+  padding-left: 0.5rem;
+}
+
+a.experience-item:hover .item-logo,
+a.experience-item:hover .item-logo-fallback {
+  transform: scale(1.05);
 }
 
 .item-text {
@@ -234,10 +249,6 @@ main {
 
 .experience-item:first-child {
   border-top: 1px solid var(--border);
-}
-
-a.experience-item:hover {
-  opacity: 0.6;
 }
 
 .item-logo {
