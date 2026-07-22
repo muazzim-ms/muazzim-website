@@ -90,7 +90,7 @@ header {
 }
 
 .intro-name {
-  font-size: 64px;
+  font-size: 48px;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -420,7 +420,7 @@ body {
   }
 
   .intro-name {
-    font-size: 36px;
+    font-size: 22px;
     line-height: 1.05;
   }
 
