@@ -31,7 +31,8 @@ function applyTheme(theme) {
 const saved = localStorage.getItem('theme')
 applyTheme(saved || 'light')
 
-btn.addEventListener('click', () => {
+btn.addEventListener('click', (e) => {
+  e.preventDefault()
   const isLight = html.classList.contains('light')
   const next = isLight ? 'dark' : 'light'
   applyTheme(next)
@@ -42,7 +43,7 @@ btn.addEventListener('click', () => {
 const items = gsap.utils.toArray('.experience-item')
 
 // Pre-hide everything before animating
-gsap.set(['.site-logo', '#theme-toggle', '.intro-name', '.intro-subtitle', ...items, 'footer'], {
+gsap.set(['.site-logo', '.intro-name', '.intro-subtitle', ...items, 'footer'], {
   opacity: 0,
   y: 20,
 })
@@ -50,7 +51,6 @@ gsap.set(['.site-logo', '#theme-toggle', '.intro-name', '.intro-subtitle', ...it
 const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
 tl.to('.site-logo', { opacity: 1, y: 0, duration: 0.5 })
-  .to('#theme-toggle', { opacity: 1, y: 0, duration: 0.5 }, '<')
   .to('.intro-name', { opacity: 1, y: 0, duration: 0.7 }, '-=0.2')
   .to('.intro-subtitle', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
   .to(items, { opacity: 1, y: 0, duration: 0.5, stagger: 0.07, clearProps: 'transform' }, '-=0.3')

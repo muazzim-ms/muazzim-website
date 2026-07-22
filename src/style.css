@@ -69,6 +69,13 @@ header {
   align-items: center;
   flex-shrink: 0;
   text-decoration: none;
+  margin-left: auto;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.site-logo:hover {
+  opacity: 0.7;
 }
 
 .site-logo img {
@@ -329,6 +336,26 @@ footer {
 .footer-left {
   display: flex;
   align-items: center;
+  gap: 0.25rem;
+  padding-left: 0.75rem;
+}
+
+.social-link {
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  transition: opacity 0.15s ease;
+}
+
+.social-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.social-link:hover {
+  opacity: 0.5;
 }
 
 footer.is-hidden {
@@ -384,27 +411,6 @@ body {
   opacity: 0.85;
 }
 
-/* ── Theme toggle ────────────────────────────── */
-#theme-toggle {
-  background: none;
-  border: none;
-  color: var(--text);
-  font-size: 22px;
-  cursor: pointer;
-  padding: 16px;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.15s ease, transform 0.4s ease;
-  font-family: inherit;
-}
-
-#theme-toggle:hover {
-  color: var(--text);
-  transform: rotate(180deg);
-}
-
 /* ── Mobile / Tablet ─────────────────────────── */
 @media (max-width: 1024px) {
   header {
@@ -430,11 +436,10 @@ body {
 
   .profile-mobile {
     display: block;
-    width: 80px;
-    height: 80px;
+    width: 48px;
+    height: 48px;
     object-fit: cover;
     border: 3px solid #0a0a0a;
-    margin-bottom: 1rem;
   }
 
   #profile-hover {
