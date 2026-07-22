@@ -58,21 +58,50 @@ tl.to('.site-logo', { opacity: 1, y: 0, duration: 0.5 })
   .to(items, { opacity: 1, y: 0, duration: 0.5, stagger: 0.07, clearProps: 'transform' }, '-=0.3')
   .to('footer', { opacity: 1, y: 0, duration: 0.5, clearProps: 'transform' }, '-=0.2')
 
-// ── List tabs (Experience ↔ Works) ────────────────
-const tabButtons = document.querySelectorAll('.tab-btn')
-const experienceList = document.getElementById('experience-list')
-const worksList = document.getElementById('works-list')
+// ── Section nav: scroll-spy active state ──────────
+const navLinks = document.querySelectorAll('.tab-btn')
+const sections = ['experience', 'stack', 'works']
+  .map((id) => document.getElementById(id))
+  .filter(Boolean)
 
-tabButtons.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    tabButtons.forEach((b) => b.classList.remove('is-active'))
-    btn.classList.add('is-active')
+// The Experience nav covers both the experience list and the stack section
+const navForSection = { experience: 'experience', stack: 'experience', works: 'works' }
 
-    const tab = btn.dataset.tab
-    experienceList.hidden = tab !== 'experience'
-    worksList.hidden = tab !== 'works'
-  })
-})
+function updateActiveNav() {
+  const threshold = 120 // px below the sticky nav
+  let currentId = sections[0].id
+  for (const section of sections) {
+    if (section.getBoundingClientRect().top <= threshold) currentId = section.id
+  }
+  // Snap to the last section once scrolled to the very bottom
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 4) {
+    currentId = sections[sections.length - 1].id
+  }
+  const activeTarget = navForSection[currentId]
+  navLinks.forEach((link) =>
+    link.classList.toggle('is-active', link.dataset.target === activeTarget)
+  )
+}
+
+window.addEventListener('scroll', updateActiveNav, { passive: true })
+updateActiveNav()
+
+// ── Lazy-load work images as they approach the viewport ──
+const lazyImages = document.querySelectorAll('img[data-src]')
+const imageObserver = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return
+      const img = entry.target
+      img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true })
+      img.src = img.dataset.src
+      img.removeAttribute('data-src')
+      observer.unobserve(img)
+    })
+  },
+  { rootMargin: '200px 0px' }
+)
+lazyImages.forEach((img) => imageObserver.observe(img))
 
 // ── Sticky tabs: reveal mini logo once pinned ─────
 const listHeader = document.querySelector('.list-header')

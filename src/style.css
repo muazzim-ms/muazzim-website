@@ -48,6 +48,13 @@ html {
   color: var(--text);
   transition: background-color 0.2s ease, color 0.2s ease;
   height: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -232,6 +239,7 @@ main {
   color: var(--text-dim);
   padding: 0;
   cursor: pointer;
+  text-decoration: none;
   transition: color 0.15s ease;
 }
 
@@ -248,21 +256,6 @@ main {
   font-size: 13px;
   font-weight: 700;
   color: var(--text-dim);
-}
-
-.works-placeholder {
-  padding: 4rem 0;
-  text-align: center;
-  color: var(--text-dim);
-  font-size: 14px;
-  letter-spacing: 0.04em;
-  border-top: 1px solid var(--border);
-}
-
-.placeholder-emoji {
-  display: block;
-  font-size: 32px;
-  margin-bottom: 1rem;
 }
 
 .works-grid {
@@ -283,18 +276,28 @@ main {
   display: block;
   width: 100%;
   height: auto;
-  transition: transform 0.3s ease;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.3s ease;
+}
+
+.work-item img.is-loaded {
+  opacity: 1;
 }
 
 .work-item:hover img {
   transform: scale(1.03);
 }
 
-.stack {
+/* ── Single-page sections ────────────────────── */
+.section {
+  scroll-margin-top: 5rem;
+}
+
+.section + .section {
   margin-top: 4rem;
 }
 
-.stack-heading {
+.section-heading {
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
