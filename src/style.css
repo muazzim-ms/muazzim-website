@@ -377,6 +377,7 @@ footer {
   display: flex;
   justify-content: flex-end;
   align-items: stretch;
+  min-height: 54px;
   position: fixed;
   bottom: 0;
   left: 0;
