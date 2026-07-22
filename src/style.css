@@ -367,7 +367,6 @@ a.experience-item:hover .item-logo-fallback {
 .item-company {
   font-size: 20px;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: 0.06em;
   line-height: 1.2;
   flex-shrink: 0;
@@ -381,7 +380,6 @@ a.experience-item:hover .item-logo-fallback {
 .item-role {
   font-size: 20px;
   font-weight: 400;
-  text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--text-dim);
   line-height: 1.2;
