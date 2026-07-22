@@ -8,14 +8,14 @@
 :root {
   --bg: #0a0a0a;
   --text: #ffffff;
-  --text-dim: rgba(255, 255, 255, 0.4);
+  --text-dim: rgba(255, 255, 255, 0.6);
   --border: rgba(255, 255, 255, 0.1);
 }
 
 :root.light {
   --bg: #f5f5f0;
   --text: #0a0a0a;
-  --text-dim: rgba(0, 0, 0, 0.4);
+  --text-dim: rgba(0, 0, 0, 0.6);
   --border: rgba(0, 0, 0, 0.1);
 }
 
