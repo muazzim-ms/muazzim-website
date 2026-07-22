@@ -64,6 +64,9 @@ const sections = ['experience', 'stack', 'works']
   .map((id) => document.getElementById(id))
   .filter(Boolean)
 
+// The Experience nav covers both the experience list and the stack section
+const navForSection = { experience: 'experience', stack: 'experience', works: 'works' }
+
 function updateActiveNav() {
   const threshold = 120 // px below the sticky nav
   let currentId = sections[0].id
@@ -74,8 +77,9 @@ function updateActiveNav() {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 4) {
     currentId = sections[sections.length - 1].id
   }
+  const activeTarget = navForSection[currentId]
   navLinks.forEach((link) =>
-    link.classList.toggle('is-active', link.dataset.target === currentId)
+    link.classList.toggle('is-active', link.dataset.target === activeTarget)
   )
 }
 
