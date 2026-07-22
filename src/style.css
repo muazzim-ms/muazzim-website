@@ -1,21 +1,36 @@
+/* Space Mono (previous font) — kept commented for easy manual revert
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+*/
+@font-face {
+  font-family: 'Monaspace Radon';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/monaspace-radon/monaspace-radon-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Monaspace Radon';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/monaspace-radon/monaspace-radon-latin-700-normal.woff2') format('woff2');
+}
 @import "tailwindcss";
 
 @theme {
-  --font-mono: 'Space Mono', 'Courier New', monospace;
+  /* --font-mono: 'Space Mono', 'Courier New', monospace; */
+  --font-mono: 'Monaspace Radon', 'Courier New', monospace;
 }
 
 :root {
   --bg: #0a0a0a;
   --text: #ffffff;
-  --text-dim: rgba(255, 255, 255, 0.4);
+  --text-dim: rgba(255, 255, 255, 0.6);
   --border: rgba(255, 255, 255, 0.1);
 }
 
 :root.light {
   --bg: #f5f5f0;
   --text: #0a0a0a;
-  --text-dim: rgba(0, 0, 0, 0.4);
+  --text-dim: rgba(0, 0, 0, 0.6);
   --border: rgba(0, 0, 0, 0.1);
 }
 
@@ -26,7 +41,8 @@
 }
 
 html {
-  font-family: 'Space Mono', 'Courier New', monospace;
+  /* font-family: 'Space Mono', 'Courier New', monospace; */
+  font-family: 'Monaspace Radon', 'Courier New', monospace;
   font-size: 16px;
   background-color: var(--bg);
   color: var(--text);
@@ -177,7 +193,9 @@ main {
   position: sticky;
   top: 0;
   z-index: 55;
-  background-color: var(--bg);
+  background-color: color-mix(in srgb, var(--bg) 50%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
   padding: 0.75rem 0;
 }
 
@@ -365,7 +383,6 @@ a.experience-item:hover .item-logo-fallback {
 .item-company {
   font-size: 20px;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: 0.06em;
   line-height: 1.2;
   flex-shrink: 0;
@@ -379,7 +396,6 @@ a.experience-item:hover .item-logo-fallback {
 .item-role {
   font-size: 20px;
   font-weight: 400;
-  text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--text-dim);
   line-height: 1.2;
@@ -510,9 +526,10 @@ body {
   }
 
   .item-text {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.15rem;
+    flex-flow: row wrap;
+    align-items: baseline;
+    row-gap: 0.15rem;
+    column-gap: 0.5rem;
   }
 
   .item-logo,
@@ -523,17 +540,21 @@ body {
 
   .item-company {
     font-size: 14px;
+    order: 1;
   }
 
   .item-role {
     font-size: 13px;
     flex: none;
+    order: 3;
+    flex-basis: 100%;
   }
 
   .item-period {
     font-size: 10px;
-    margin-left: 0;
-    align-self: flex-start;
+    order: 2;
+    margin-left: auto;
+    align-self: baseline;
     text-align: left;
   }
 }
