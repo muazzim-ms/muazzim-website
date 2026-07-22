@@ -177,7 +177,9 @@ main {
   position: sticky;
   top: 0;
   z-index: 55;
-  background-color: var(--bg);
+  background-color: color-mix(in srgb, var(--bg) 50%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
   padding: 0.75rem 0;
 }
 
