@@ -1,8 +1,23 @@
+/* Space Mono (previous font) — kept commented for easy manual revert
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+*/
+@font-face {
+  font-family: 'Monaspace Radon';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/monaspace-radon/monaspace-radon-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Monaspace Radon';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/monaspace-radon/monaspace-radon-latin-700-normal.woff2') format('woff2');
+}
 @import "tailwindcss";
 
 @theme {
-  --font-mono: 'Space Mono', 'Courier New', monospace;
+  /* --font-mono: 'Space Mono', 'Courier New', monospace; */
+  --font-mono: 'Monaspace Radon', 'Courier New', monospace;
 }
 
 :root {
@@ -26,7 +41,8 @@
 }
 
 html {
-  font-family: 'Space Mono', 'Courier New', monospace;
+  /* font-family: 'Space Mono', 'Courier New', monospace; */
+  font-family: 'Monaspace Radon', 'Courier New', monospace;
   font-size: 16px;
   background-color: var(--bg);
   color: var(--text);
