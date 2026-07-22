@@ -46,15 +46,19 @@
       </div>
 
       <div class="list-header">
-        <button class="tab-btn is-active" data-tab="experience">Experience</button>
+        <a class="tab-btn is-active" href="#experience" data-target="experience">Experience</a>
         <span class="tab-divider">/</span>
-        <button class="tab-btn" data-tab="works">Works</button>
+        <a class="tab-btn" href="#stack" data-target="stack">Stack</a>
+        <span class="tab-divider">/</span>
+        <a class="tab-btn" href="#works" data-target="works">Works</a>
         <a href="/" class="tabs-logo theme-toggle-trigger" aria-label="Toggle theme">
           <img class="logo-dark" src="/logo-dark.png" alt="Muazzim logo" />
           <img class="logo-light" src="/logo-light.webp" alt="Muazzim logo" />
         </a>
       </div>
 
+      <section id="experience" class="section">
+      <h2 class="section-heading">Experience</h2>
       <ul class="experience-list" id="experience-list">
 
         <a class="experience-item" href="https://rekakod.com" target="_blank" rel="noopener">
@@ -121,33 +125,10 @@
         </li>
 
       </ul>
+      </section>
 
-      <div class="works-grid" id="works-list" hidden>
-        <figure class="work-item">
-          <img src="/works/tellandgo.webp" alt="tellandgo — AI travel planning" loading="lazy" />
-        </figure>
-        <figure class="work-item">
-          <img src="/works/colourful-resort.webp" alt="Colourful Resort — hotel management platform" loading="lazy" />
-        </figure>
-        <figure class="work-item">
-          <img src="/works/samara.webp" alt="Samara Management Solutions — training & consultancy" loading="lazy" />
-        </figure>
-        <figure class="work-item">
-          <img src="/works/sulaiman-plantation.webp" alt="Sulaiman Plantation — sustainable agriculture" loading="lazy" />
-        </figure>
-        <figure class="work-item">
-          <img src="/works/trsentuh.webp" alt="trSentuh — gifting brand" loading="lazy" />
-        </figure>
-        <figure class="work-item">
-          <img src="/works/mycorps.webp" alt="MyCorps Alumni — youth volunteering program" loading="lazy" />
-        </figure>
-        <figure class="work-item">
-          <img src="/works/pautm.webp" alt="Persatuan Alumni UTM Kedah/Perlis" loading="lazy" />
-        </figure>
-      </div>
-
-      <div class="stack">
-        <h2 class="stack-heading">Stack</h2>
+      <section id="stack" class="section">
+        <h2 class="section-heading">Stack</h2>
         <div class="stack-icons">
           <span class="stack-icon" role="img" aria-label="Figma">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.097-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z"/></svg>
@@ -192,7 +173,34 @@
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.139c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></svg>
           </span>
         </div>
-      </div>
+      </section>
+
+      <section id="works" class="section">
+        <h2 class="section-heading">Works</h2>
+        <div class="works-grid" id="works-list">
+          <figure class="work-item">
+            <img data-src="/works/tellandgo.webp" width="1080" height="1080" alt="tellandgo — AI travel planning" />
+          </figure>
+          <figure class="work-item">
+            <img data-src="/works/colourful-resort.webp" width="1080" height="1080" alt="Colourful Resort — hotel management platform" />
+          </figure>
+          <figure class="work-item">
+            <img data-src="/works/samara.webp" width="2048" height="2048" alt="Samara Management Solutions — training & consultancy" />
+          </figure>
+          <figure class="work-item">
+            <img data-src="/works/sulaiman-plantation.webp" width="2048" height="2048" alt="Sulaiman Plantation — sustainable agriculture" />
+          </figure>
+          <figure class="work-item">
+            <img data-src="/works/trsentuh.webp" width="1080" height="1080" alt="trSentuh — gifting brand" />
+          </figure>
+          <figure class="work-item">
+            <img data-src="/works/mycorps.webp" width="2048" height="1152" alt="MyCorps Alumni — youth volunteering program" />
+          </figure>
+          <figure class="work-item">
+            <img data-src="/works/pautm.webp" width="2048" height="1152" alt="Persatuan Alumni UTM Kedah/Perlis" />
+          </figure>
+        </div>
+      </section>
 
       <div class="social-links">
         <a href="https://x.com/muazz1m" target="_blank" rel="noopener">X</a>
