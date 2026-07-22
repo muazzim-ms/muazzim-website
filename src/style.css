@@ -220,6 +220,63 @@ main {
   margin-bottom: 1rem;
 }
 
+.stack {
+  margin-top: 4rem;
+}
+
+.stack-heading {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.stack-icons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.stack-icon {
+  display: flex;
+  color: var(--text);
+}
+
+.stack-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 4rem;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.social-links a {
+  color: var(--text-dim);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: color 0.15s ease;
+}
+
+.social-links a:hover {
+  color: var(--text);
+}
+
+.social-divider {
+  color: var(--text-dim);
+}
+
 .experience-item {
   display: flex;
   align-items: center;
@@ -318,7 +375,7 @@ a.experience-item:hover .item-logo-fallback {
 /* ── Footer ──────────────────────────────────── */
 footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: stretch;
   position: fixed;
   bottom: 0;
@@ -331,31 +388,6 @@ footer {
   border-top: 1px solid var(--border);
   z-index: 50;
   transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.footer-left {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding-left: 0.75rem;
-}
-
-.social-link {
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-  transition: opacity 0.15s ease;
-}
-
-.social-link svg {
-  width: 18px;
-  height: 18px;
-}
-
-.social-link:hover {
-  opacity: 0.5;
 }
 
 footer.is-hidden {
@@ -436,10 +468,11 @@ body {
 
   .profile-mobile {
     display: block;
-    width: 48px;
-    height: 48px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
     border: 3px solid #0a0a0a;
+    margin-bottom: 1rem;
   }
 
   #profile-hover {
