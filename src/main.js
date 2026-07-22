@@ -17,7 +17,7 @@ trigger.addEventListener('mousemove', (e) => {
 })
 
 // ── Theme toggle ──────────────────────────────────
-const btn = document.getElementById('theme-toggle')
+const themeToggles = document.querySelectorAll('.theme-toggle-trigger')
 const html = document.documentElement
 
 function applyTheme(theme) {
@@ -31,12 +31,14 @@ function applyTheme(theme) {
 const saved = localStorage.getItem('theme')
 applyTheme(saved || 'light')
 
-btn.addEventListener('click', (e) => {
-  e.preventDefault()
-  const isLight = html.classList.contains('light')
-  const next = isLight ? 'dark' : 'light'
-  applyTheme(next)
-  localStorage.setItem('theme', next)
+themeToggles.forEach((toggle) => {
+  toggle.addEventListener('click', (e) => {
+    e.preventDefault()
+    const isLight = html.classList.contains('light')
+    const next = isLight ? 'dark' : 'light'
+    applyTheme(next)
+    localStorage.setItem('theme', next)
+  })
 })
 
 // ── Entrance animations ───────────────────────────
@@ -71,6 +73,17 @@ tabButtons.forEach((btn) => {
     worksList.hidden = tab !== 'works'
   })
 })
+
+// ── Sticky tabs: reveal mini logo once pinned ─────
+const listHeader = document.querySelector('.list-header')
+
+function updateStuck() {
+  const stuck = listHeader.getBoundingClientRect().top <= 0
+  listHeader.classList.toggle('is-stuck', stuck)
+}
+
+window.addEventListener('scroll', updateStuck, { passive: true })
+updateStuck()
 
 // ── Footer auto-hide on scroll ────────────────────
 const footer = document.querySelector('footer')
