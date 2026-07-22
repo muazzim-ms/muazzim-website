@@ -6,7 +6,12 @@
       "Bash(git commit *)",
       "Bash(git push *)",
       "Bash(npm run *)",
-      "mcp__bf7c680d-5fdc-5ef4-b4a0-abadb619bf0a__send_later"
+      "mcp__bf7c680d-5fdc-5ef4-b4a0-abadb619bf0a__send_later",
+      "Bash(mkdir -p /home/user/muazzim-website/public/works)",
+      "Bash(cp /root/.claude/uploads/b75a0970-170d-5a96-a82c-76d243008a78/5057c182-IMG_1549.webp /home/user/muazzim-website/public/works/tellandgo.webp)",
+      "Bash(cp /root/.claude/uploads/b75a0970-170d-5a96-a82c-76d243008a78/c6583d70-IMG_1550.webp /home/user/muazzim-website/public/works/colourful-resort.webp)",
+      "Bash(cp /root/.claude/uploads/b75a0970-170d-5a96-a82c-76d243008a78/1305913f-IMG_1551.webp /home/user/muazzim-website/public/works/samara.webp)",
+      "Bash(cp /root/.claude/uploads/b75a0970-170d-5a96-a82c-76d243008a78/29e9be0b-IMG_1552.webp /home/user/muazzim-website/public/works/sulaiman-plantation.webp)"
     ]
   }
 }
