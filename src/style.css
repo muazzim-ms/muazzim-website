@@ -265,6 +265,31 @@ main {
   margin-bottom: 1rem;
 }
 
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+
+.work-item {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.work-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.work-item:hover img {
+  transform: scale(1.03);
+}
+
 .stack {
   margin-top: 4rem;
 }
@@ -561,5 +586,9 @@ body {
     margin-left: 0;
     align-self: flex-start;
     text-align: left;
+  }
+
+  .works-grid {
+    grid-template-columns: 1fr;
   }
 }
