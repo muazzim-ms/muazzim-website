@@ -384,10 +384,13 @@ a.experience-item:hover .item-logo-fallback {
 
 .item-company {
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.06em;
   line-height: 1.2;
-  flex-shrink: 0;
+  color: var(--text-dim);
+  flex: 1;
+  min-width: 0;
+  order: 2;
 }
 
 .item-divider {
@@ -397,12 +400,12 @@ a.experience-item:hover .item-logo-fallback {
 
 .item-role {
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: 0.06em;
-  color: var(--text-dim);
+  color: var(--text);
   line-height: 1.2;
-  flex: 1;
-  min-width: 0;
+  flex-shrink: 0;
+  order: 1;
 }
 
 .item-period {
@@ -413,6 +416,7 @@ a.experience-item:hover .item-logo-fallback {
   line-height: 1.2;
   white-space: nowrap;
   margin-left: auto;
+  order: 3;
 }
 
 /* ── Footer ──────────────────────────────────── */
@@ -540,12 +544,13 @@ body {
   }
 
   .item-company {
-    font-size: 14px;
+    font-size: 13px;
+    flex: none;
     order: 2;
   }
 
   .item-role {
-    font-size: 13px;
+    font-size: 14px;
     flex: none;
     order: 1;
   }
