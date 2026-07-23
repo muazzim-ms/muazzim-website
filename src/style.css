@@ -174,6 +174,10 @@ header {
   opacity: 0.6;
 }
 
+.subtitle-highlight {
+  color: var(--text);
+}
+
 .intro-subtitle {
   font-size: 24px;
   color: var(--text-dim);
@@ -623,7 +627,8 @@ body {
   }
 
   .intro-subtitle {
-    font-size: 16px;
+    font-size: 15px;
+    letter-spacing: 0.02em;
   }
 
   .profile-mobile {
@@ -703,6 +708,6 @@ body {
     width: 100vw;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-    padding: 0.75rem max(0px, calc((100vw - 800px) / 2));
+    padding: 0.75rem max(2rem, calc((100vw - 800px) / 2 + 2rem));
   }
 }
