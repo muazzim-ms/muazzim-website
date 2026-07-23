@@ -297,10 +297,8 @@ main {
 
 .work-item-cta {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
   aspect-ratio: 1 / 1;
   border: 1px dashed var(--border);
   border-radius: 6px;
@@ -308,23 +306,27 @@ main {
   color: var(--text-dim);
   text-decoration: none;
   text-align: center;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
 }
 
 .work-item-cta:hover {
   border-color: var(--text-dim);
   color: var(--text);
+  background-color: rgba(255, 255, 255, 0.04);
 }
 
-.work-item-cta svg {
-  width: 28px;
-  height: 28px;
+:root.light .work-item-cta:hover {
+  background-color: rgba(0, 0, 0, 0.04);
 }
 
 .work-item-cta span {
   font-size: 14px;
   letter-spacing: 0.04em;
-  max-width: 16ch;
+  max-width: 20ch;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 /* ── Single-page sections ────────────────────── */
