@@ -485,7 +485,7 @@ a.experience-item:hover .item-logo-fallback {
 }
 
 .item-period {
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 400;
   color: var(--text-dim);
   letter-spacing: 0.04em;
@@ -505,7 +505,7 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 0;
+  padding: 0 max(0px, calc((100% - 800px) / 2));
   background-color: color-mix(in srgb, var(--bg) 50%, transparent);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
