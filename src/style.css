@@ -176,6 +176,7 @@ header {
   font-size: 24px;
   color: var(--text-dim);
   letter-spacing: 0.04em;
+  max-width: 58ch;
 }
 
 /* ── Main content ────────────────────────────── */
