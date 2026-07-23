@@ -329,7 +329,6 @@ main {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 4rem;
   font-size: 13px;
   letter-spacing: 0.04em;
 }
