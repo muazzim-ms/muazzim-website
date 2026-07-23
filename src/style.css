@@ -333,6 +333,49 @@ main {
   letter-spacing: 0.04em;
 }
 
+.contact-email {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+}
+
+.email-copy {
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  color: var(--text-dim);
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.15s ease;
+}
+
+.email-copy:hover {
+  color: var(--text);
+}
+
+.email-copy svg {
+  width: 15px;
+  height: 15px;
+}
+
+.copy-feedback {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.copy-feedback.show {
+  opacity: 1;
+}
+
 .social-links a {
   color: var(--text-dim);
   text-decoration: underline;

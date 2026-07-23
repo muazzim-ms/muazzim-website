@@ -41,6 +41,35 @@ themeToggles.forEach((toggle) => {
   })
 })
 
+// ── Copy email to clipboard ───────────────────────
+const emailCopy = document.querySelector('.email-copy')
+if (emailCopy) {
+  const feedback = document.querySelector('.copy-feedback')
+  let feedbackTimer = null
+
+  emailCopy.addEventListener('click', async () => {
+    const email = document.querySelector('.email-address').textContent.trim()
+    try {
+      await navigator.clipboard.writeText(email)
+    } catch {
+      const ta = document.createElement('textarea')
+      ta.value = email
+      ta.style.position = 'fixed'
+      ta.style.opacity = '0'
+      document.body.appendChild(ta)
+      ta.select()
+      document.execCommand('copy')
+      ta.remove()
+    }
+    if (feedback) {
+      feedback.textContent = 'Copied'
+      feedback.classList.add('show')
+      clearTimeout(feedbackTimer)
+      feedbackTimer = setTimeout(() => feedback.classList.remove('show'), 1600)
+    }
+  })
+}
+
 // ── Entrance animations ───────────────────────────
 const items = gsap.utils.toArray('.experience-item')
 
