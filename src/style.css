@@ -323,9 +323,9 @@ main {
 }
 
 .work-item-cta span {
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: 0.04em;
-  max-width: 20ch;
+  max-width: 24ch;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
