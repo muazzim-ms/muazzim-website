@@ -679,3 +679,30 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Desktop-only adjustments ────────────────── */
+@media (min-width: 1025px) {
+  .intro-name {
+    font-size: 36px;
+  }
+
+  .intro-subtitle {
+    font-size: 18px;
+  }
+
+  .stack-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .works-grid .work-item:nth-last-child(-n + 2) {
+    display: none;
+  }
+
+  .list-header {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 0.75rem max(0px, calc((100vw - 800px) / 2));
+  }
+}
