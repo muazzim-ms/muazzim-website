@@ -306,20 +306,20 @@ main {
   color: var(--text-dim);
   text-decoration: none;
   text-align: center;
+  background-color: rgba(255, 255, 255, 0.04);
   background-image: radial-gradient(circle, color-mix(in srgb, var(--text) 22%, transparent) 1px, transparent 1px);
   background-size: 18px 18px;
   background-position: center;
-  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+:root.light .work-item-cta {
+  background-color: rgba(0, 0, 0, 0.04);
 }
 
 .work-item-cta:hover {
   border-color: var(--text-dim);
   color: var(--text);
-  background-color: rgba(255, 255, 255, 0.04);
-}
-
-:root.light .work-item-cta:hover {
-  background-color: rgba(0, 0, 0, 0.04);
 }
 
 .work-item-cta span {
