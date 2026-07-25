@@ -3,6 +3,10 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Mobile browsers fire a resize when the URL bar collapses mid-scroll, which
+// would otherwise refresh every trigger and make scrubbed animations jump.
+ScrollTrigger.config({ ignoreMobileResize: true })
+
 // ── Cursor-following profile photo ───────────────
 const trigger = document.getElementById('name-trigger')
 const profileImg = document.getElementById('profile-hover')
@@ -146,67 +150,69 @@ if (ctaTile) {
   const message = 'Love this!'
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-  if (reduceMotion) {
-    // No travel, no typing — just the end state.
-    gsap.set(cursors, { opacity: 1, x: 0, y: 0 })
-    gsap.set(nameTag, { opacity: 0 })
-    gsap.set(bubble, { opacity: 1 })
-    typedEl.textContent = message
-  } else {
-    gsap.set(bubble, { opacity: 0 })
+  gsap.set(bubble, { opacity: 0 })
 
-    // Muazzim starts typing: the name chip gives way to a chat bubble. Plays
-    // once the cursors have all landed, so it is not scrubbed with them.
-    const typing = { n: 0 }
-    const chatTl = gsap.timeline({ paused: true })
-    chatTl
-      .to(nameTag, { opacity: 0, duration: 0.2, ease: 'power2.in' })
-      .to(bubble, { opacity: 1, duration: 0.25, ease: 'back.out(2)' }, '<')
-      .to(typing, {
-        n: message.length,
-        duration: 0.8,
-        ease: 'none',
-        onUpdate: () => {
-          typedEl.textContent = message.slice(0, Math.round(typing.n))
-        },
-      }, '<0.1')
-
-    let chatting = false
-    function setChatting(on) {
-      if (on === chatting) return
-      chatting = on
-      if (on) chatTl.play()
-      else chatTl.reverse()
-    }
-
-    // Scrubbed to scroll position: the cursors travel in as the tile rises
-    // into view and travel back out as it leaves, rather than firing once.
-    // The entry spans the whole range, so it lands exactly as the tile
-    // reaches full view — then the chat bubble follows.
-    const tl = gsap.timeline({
-      defaults: { ease: 'none' },
-      scrollTrigger: {
-        trigger: ctaTile,
-        start: 'top bottom',
-        end: 'bottom 90%',
-        scrub: 0.5,
-        // onUpdate covers stopping right at full view; onLeave covers
-        // scrolling straight past it, where onUpdate no longer fires.
-        onUpdate: (self) => setChatting(self.progress > 0.995),
-        onLeave: () => setChatting(true),
-        onEnterBack: () => setChatting(false),
+  // Muazzim starts typing: the name chip gives way to a chat bubble. Plays
+  // once the cursors have all landed, so it is not scrubbed with them.
+  const typing = { n: 0 }
+  const chatTl = gsap.timeline({ paused: true })
+  chatTl
+    .to(nameTag, { opacity: 0, duration: 0.2, ease: 'power2.in' })
+    .to(bubble, { opacity: 1, duration: 0.25, ease: 'back.out(2)' }, '<')
+    .to(typing, {
+      n: message.length,
+      // Reduced motion still gets the message, just not letter by letter.
+      duration: reduceMotion ? 0 : 0.8,
+      ease: 'none',
+      onUpdate: () => {
+        typedEl.textContent = message.slice(0, Math.round(typing.n))
       },
-    })
+    }, '<0.1')
 
-    cursors.forEach((cursor, i) => {
+  let chatting = false
+  function setChatting(on) {
+    if (on === chatting) return
+    chatting = on
+    if (on) chatTl.play()
+    else chatTl.reverse()
+  }
+
+  // Scrubbed to scroll position: the cursors travel in as the tile rises
+  // into view and travel back out as it leaves, rather than firing once.
+  // The entry spans the whole range, so it lands exactly as the tile
+  // reaches full view — then the chat bubble follows.
+  const tl = gsap.timeline({
+    defaults: { ease: 'none' },
+    scrollTrigger: {
+      trigger: ctaTile,
+      start: 'top bottom',
+      end: 'bottom 90%',
+      scrub: 0.5,
+      // onUpdate covers stopping right at full view; onLeave covers
+      // scrolling straight past it, where onUpdate no longer fires.
+      onUpdate: (self) => setChatting(self.progress > 0.995),
+      onLeave: () => setChatting(true),
+      onEnterBack: () => setChatting(false),
+    },
+  })
+
+  cursors.forEach((cursor, i) => {
+    const at = i * 0.35
+    // Fade in over the first stretch so the travel that follows is visible
+    // rather than reading as one long cross-fade.
+    tl.fromTo(cursor, { opacity: 0 }, { opacity: 1, duration: 0.3 }, at)
+
+    // Reduced motion keeps the scroll-linked reveal but drops the travel,
+    // so the tile still responds to scrolling instead of arriving finished.
+    if (!reduceMotion) {
       tl.fromTo(
         cursor,
-        { opacity: 0, x: Number(cursor.dataset.fromX), y: Number(cursor.dataset.fromY) },
-        { opacity: 1, x: 0, y: 0, duration: 1 },
-        i * 0.35
+        { x: Number(cursor.dataset.fromX), y: Number(cursor.dataset.fromY) },
+        { x: 0, y: 0, duration: 1 },
+        at
       )
-    })
-  }
+    }
+  })
 }
 
 // ── Sticky tabs: reveal mini logo once pinned ─────
