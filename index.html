@@ -28,6 +28,15 @@
   </head>
   <body>
 
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <clipPath id="hand-square-mask" clipPathUnits="objectBoundingBox">
+          <path d="M0.042,0.030 C0.30,0.018 0.66,0.040 0.972,0.052 C0.988,0.32 0.968,0.66 0.955,0.968 C0.68,0.985 0.33,0.962 0.030,0.945 C0.016,0.66 0.036,0.33 0.042,0.030 Z" />
+        </clipPath>
+        <path id="hand-square-line" vector-effect="non-scaling-stroke" d="M0.042,0.030 C0.30,0.018 0.66,0.040 0.972,0.052 C0.988,0.32 0.968,0.66 0.955,0.968 C0.68,0.985 0.33,0.962 0.030,0.945 C0.016,0.66 0.036,0.33 0.042,0.030 Z" />
+      </defs>
+    </svg>
+
     <header>
       <a href="/" class="site-logo theme-toggle-trigger" aria-label="Toggle theme">
         <img class="logo-dark" src="/logo-dark.png" alt="Muazzim logo" />
@@ -38,7 +47,12 @@
     <main>
       <div class="intro">
         <div class="intro-header">
-          <img class="profile-mobile" src="/profile.png" alt="Muazzim" />
+          <span class="profile-mobile profile-frame">
+            <img class="profile-frame-img" src="/profile.png" alt="Muazzim" />
+            <svg class="profile-frame-line" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true">
+              <use href="#hand-square-line" class="frame-line-main"></use>
+            </svg>
+          </span>
           <div class="intro-heading">
             <h1 class="intro-name">
               <span id="name-trigger">Muazzim</span> Mansor Sanusi
@@ -49,7 +63,12 @@
             </p>
           </div>
         </div>
-        <img id="profile-hover" src="/profile.png" alt="Muazzim" />
+        <span id="profile-hover" class="profile-frame">
+          <img class="profile-frame-img" src="/profile.png" alt="Muazzim" />
+          <svg class="profile-frame-line" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true">
+            <use href="#hand-square-line" class="frame-line-main"></use>
+          </svg>
+        </span>
         <p class="intro-subtitle">Product designer with an engineering background, working across AI tooling, design systems, and enterprise-grade UX.<br class="subtitle-gap"><br class="subtitle-gap"> Co-founder of <a class="subtitle-link" href="https://rekakod.com" target="_blank" rel="noopener">Rekakod</a>, helping growing companies and agencies build products that scale. Previously at <span class="subtitle-highlight">LottieFiles</span> and&nbsp;<span class="subtitle-highlight">Dyson</span>.</p>
       </div>
 
