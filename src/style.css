@@ -179,7 +179,7 @@ header {
   width: 200px;
   height: 200px;
   object-fit: cover;
-  border: 3px solid #0a0a0a;
+  border: 3px solid var(--text);
   display: block;
   opacity: 0;
   pointer-events: none;
@@ -733,7 +733,7 @@ body {
     width: 64px;
     height: 64px;
     object-fit: cover;
-    border: 2px solid #0a0a0a;
+    border: 2px solid var(--text);
     border-radius: 4px;
   }
 
