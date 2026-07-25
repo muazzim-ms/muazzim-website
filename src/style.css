@@ -178,14 +178,51 @@ header {
   position: fixed;
   width: 200px;
   height: 200px;
-  object-fit: cover;
-  border: 3px solid var(--text);
   display: block;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.15s ease;
   z-index: 100;
   transform: translate(16px, 16px);
+}
+
+.profile-frame {
+  position: relative;
+  overflow: visible;
+}
+
+.profile-frame-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: url(#hand-square-mask);
+}
+
+.profile-frame-line {
+  position: absolute;
+  inset: -6%;
+  width: 112%;
+  height: 112%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.frame-line-main,
+.frame-line-accent {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.frame-line-main {
+  stroke-width: 0.016;
+}
+
+.frame-line-accent {
+  stroke-width: 0.01;
+  opacity: 0.35;
 }
 
 .subtitle-link {
@@ -732,9 +769,6 @@ body {
     display: block;
     width: 64px;
     height: 64px;
-    object-fit: cover;
-    border: 1.5px solid var(--text);
-    border-radius: 4px;
   }
 
   #profile-hover {
