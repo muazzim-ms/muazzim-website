@@ -155,8 +155,34 @@ if (ctaTile) {
   } else {
     gsap.set(bubble, { opacity: 0 })
 
+    // Muazzim starts typing: the name chip gives way to a chat bubble. Plays
+    // once the cursors have all landed, so it is not scrubbed with them.
+    const typing = { n: 0 }
+    const chatTl = gsap.timeline({ paused: true })
+    chatTl
+      .to(nameTag, { opacity: 0, duration: 0.2, ease: 'power2.in' })
+      .to(bubble, { opacity: 1, duration: 0.25, ease: 'back.out(2)' }, '<')
+      .to(typing, {
+        n: message.length,
+        duration: 0.8,
+        ease: 'none',
+        onUpdate: () => {
+          typedEl.textContent = message.slice(0, Math.round(typing.n))
+        },
+      }, '<0.1')
+
+    let chatting = false
+    function setChatting(on) {
+      if (on === chatting) return
+      chatting = on
+      if (on) chatTl.play()
+      else chatTl.reverse()
+    }
+
     // Scrubbed to scroll position: the cursors travel in as the tile rises
     // into view and travel back out as it leaves, rather than firing once.
+    // The entry spans the whole range, so it lands exactly as the tile
+    // reaches full view — then the chat bubble follows.
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: {
@@ -164,6 +190,11 @@ if (ctaTile) {
         start: 'top bottom',
         end: 'bottom 90%',
         scrub: 0.5,
+        // onUpdate covers stopping right at full view; onLeave covers
+        // scrolling straight past it, where onUpdate no longer fires.
+        onUpdate: (self) => setChatting(self.progress > 0.995),
+        onLeave: () => setChatting(true),
+        onEnterBack: () => setChatting(false),
       },
     })
 
@@ -174,21 +205,6 @@ if (ctaTile) {
         { opacity: 1, x: 0, y: 0, duration: 1 },
         i * 0.35
       )
-    })
-
-    // Muazzim starts typing: the name chip gives way to a chat bubble.
-    const typeIn = 2.1
-    const typeOut = 2.9
-    tl.to(nameTag, { opacity: 0, duration: 0.25 }, 1.95)
-      .to(bubble, { opacity: 1, duration: 0.25 }, 1.95)
-      .to({}, { duration: typeOut - typeIn }, typeIn) // holds the typing stretch open
-
-    // Derived from the timeline's own time rather than tweened onto a proxy:
-    // a ScrollTrigger refresh reverts and restores the timeline, and a proxy
-    // tween can be left blank by that round trip.
-    tl.eventCallback('onUpdate', () => {
-      const progress = gsap.utils.clamp(0, 1, (tl.time() - typeIn) / (typeOut - typeIn))
-      typedEl.textContent = message.slice(0, Math.round(progress * message.length))
     })
   }
 }
