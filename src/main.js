@@ -156,7 +156,7 @@ if (ctaTile) {
   function enter() {
     tl?.kill()
     // Let the tile settle in view for a beat before anyone "arrives".
-    tl = gsap.timeline({ delay: 1.5, defaults: { ease: 'power3.out' } })
+    tl = gsap.timeline({ delay: 0.4, defaults: { ease: 'power3.out' } })
 
     cursors.forEach((cursor, i) => {
       tl.fromTo(
