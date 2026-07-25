@@ -64,7 +64,9 @@ html {
   background-color: var(--bg);
   color: var(--text);
   transition: background-color 0.2s ease, color 0.2s ease;
-  height: 100%;
+  /* No height: 100% here — body already carries min-height: 100vh, and
+     constraining html to the viewport skews scroll measurements on iOS
+     Safari, which the scroll-linked cursors depend on. */
   scroll-behavior: smooth;
 }
 

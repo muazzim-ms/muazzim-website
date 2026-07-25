@@ -3,6 +3,10 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Mobile browsers fire a resize when the URL bar collapses mid-scroll, which
+// would otherwise refresh every trigger and make scrubbed animations jump.
+ScrollTrigger.config({ ignoreMobileResize: true })
+
 // ── Cursor-following profile photo ───────────────
 const trigger = document.getElementById('name-trigger')
 const profileImg = document.getElementById('profile-hover')
