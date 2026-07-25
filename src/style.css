@@ -201,28 +201,28 @@ header {
 
 .profile-frame-line {
   position: absolute;
-  inset: -6%;
-  width: 112%;
-  height: 112%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   overflow: visible;
   pointer-events: none;
 }
 
-.frame-line-main,
-.frame-line-accent {
+/* Stroke sits on the same 0–1 box as the clip-path, so the line traces the
+   photo's clipped edge exactly. The path carries vector-effect="non-scaling-stroke"
+   (not inheritable, so it can't live here) which makes stroke-width a true pixel
+   pen weight at both photo sizes. */
+.frame-line-main {
   fill: none;
   stroke: currentColor;
+  stroke-width: 1.5;
   stroke-linecap: round;
-  stroke-linejoin: round;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 4;
 }
 
-.frame-line-main {
-  stroke-width: 0.016;
-}
-
-.frame-line-accent {
-  stroke-width: 0.01;
-  opacity: 0.35;
+#profile-hover .frame-line-main {
+  stroke-width: 2;
 }
 
 .subtitle-link {
