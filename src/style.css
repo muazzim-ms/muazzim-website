@@ -352,8 +352,18 @@ main {
   display: block;
   width: 100%;
   height: auto;
+  /* These carry data-src rather than src, and an img with no src collapses to
+     zero height in Safari even with width/height attributes — which shifts
+     every scroll measurement below it once the real image lands. Reserving
+     the box here keeps page height stable from first paint. */
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   opacity: 0;
   transition: opacity 0.4s ease, transform 0.3s ease;
+}
+
+.work-item-desktop-hidden img {
+  aspect-ratio: 16 / 9;
 }
 
 .work-item img.is-loaded {
