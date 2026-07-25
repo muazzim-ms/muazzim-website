@@ -25,6 +25,23 @@
   --text: #ffffff;
   --text-dim: rgba(255, 255, 255, 0.6);
   --border: rgba(255, 255, 255, 0.1);
+
+  /* Typescale — 1.25 ladder anchored at 16px: 11 · 13 · 16 · 20 · 40.
+     Mobile values are the default; the 1025px query below reassigns the
+     four responsive steps. */
+  --fs-display: 16px;
+  --fs-lead: 13px;
+  --fs-body: 13px;
+  --fs-ui: 13px;
+  --fs-meta: 11px;
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.35;
+  --lh-relaxed: 1.45;
+
+  --ls-tight: -0.02em;
+  --ls-normal: 0;
+  --ls-caps: 0.04em;
 }
 
 :root.light {
@@ -64,7 +81,8 @@ body {
   padding: 2rem 2rem;
   max-width: 800px;
   margin-inline: auto;
-  letter-spacing: 0.02em;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-normal);
   position: relative;
 }
 
@@ -77,10 +95,10 @@ header {
 }
 
 .logo {
-  font-size: 13px;
+  font-size: var(--fs-ui);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-caps);
   color: var(--text);
   text-decoration: none;
 }
@@ -118,14 +136,14 @@ header {
 
 /* ── Intro ───────────────────────────────────── */
 .intro {
-  margin-bottom: 8rem;
+  margin-bottom: 4rem;
 }
 
 .intro-name {
-  font-size: 48px;
+  font-size: var(--fs-display);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  letter-spacing: var(--ls-normal);
+  line-height: var(--lh-tight);
   text-transform: none;
   color: var(--text);
   margin-bottom: 0.35rem;
@@ -161,7 +179,7 @@ header {
   width: 200px;
   height: 200px;
   object-fit: cover;
-  border: 3px solid #0a0a0a;
+  border: 3px solid var(--text);
   display: block;
   opacity: 0;
   pointer-events: none;
@@ -187,9 +205,10 @@ header {
 }
 
 .intro-subtitle {
-  font-size: 24px;
+  font-size: var(--fs-lead);
   color: var(--text-dim);
-  letter-spacing: 0em;
+  line-height: var(--lh-relaxed);
+  letter-spacing: var(--ls-normal);
   max-width: 58ch;
 }
 
@@ -247,10 +266,11 @@ main {
   background: none;
   border: none;
   font-family: inherit;
-  font-size: 13px;
+  font-size: var(--fs-ui);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-caps);
+  line-height: var(--lh-snug);
   color: var(--text-dim);
   padding: 0;
   cursor: pointer;
@@ -268,8 +288,10 @@ main {
 }
 
 .tab-divider {
-  font-size: 13px;
+  font-size: var(--fs-ui);
   font-weight: 700;
+  letter-spacing: var(--ls-caps);
+  line-height: var(--lh-snug);
   color: var(--text-dim);
 }
 
@@ -331,8 +353,9 @@ main {
 }
 
 .work-item-cta span {
-  font-size: 18px;
-  letter-spacing: 0.02em;
+  font-size: var(--fs-body);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-normal);
   max-width: 24ch;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -350,10 +373,11 @@ main {
 }
 
 .section-heading {
-  font-size: 13px;
+  font-size: var(--fs-ui);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-caps);
+  line-height: var(--lh-snug);
   color: var(--text-dim);
   padding-bottom: 0.75rem;
   margin-bottom: 1.25rem;
@@ -381,8 +405,9 @@ main {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 13px;
-  letter-spacing: 0.02em;
+  font-size: var(--fs-ui);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-normal);
 }
 
 .contact-email {
@@ -390,8 +415,9 @@ main {
   align-items: center;
   gap: 0.5rem;
   margin-top: 0.85rem;
-  font-size: 13px;
-  letter-spacing: 0.02em;
+  font-size: var(--fs-ui);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-normal);
   color: var(--text-dim);
 }
 
@@ -416,9 +442,10 @@ main {
 }
 
 .copy-feedback {
-  font-size: 11px;
+  font-size: var(--fs-meta);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-caps);
+  line-height: var(--lh-snug);
   color: var(--text-dim);
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -497,7 +524,7 @@ a.experience-item:hover .item-logo-fallback {
   height: 48px;
   background: var(--text-dim);
   color: var(--bg);
-  font-size: 18px;
+  font-size: var(--fs-body);
   font-weight: 700;
   display: inline-flex;
   align-items: center;
@@ -507,10 +534,10 @@ a.experience-item:hover .item-logo-fallback {
 }
 
 .item-company {
-  font-size: 17px;
+  font-size: var(--fs-body);
   font-weight: 400;
-  letter-spacing: 0.04em;
-  line-height: 1.2;
+  letter-spacing: var(--ls-normal);
+  line-height: var(--lh-snug);
   color: var(--text-dim);
   order: 3;
   flex-basis: 100%;
@@ -522,21 +549,21 @@ a.experience-item:hover .item-logo-fallback {
 }
 
 .item-role {
-  font-size: 17px;
+  font-size: var(--fs-body);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-normal);
   color: var(--text);
-  line-height: 1.2;
+  line-height: var(--lh-snug);
   flex-shrink: 0;
   order: 1;
 }
 
 .item-period {
-  font-size: 15px;
+  font-size: var(--fs-meta);
   font-weight: 400;
   color: var(--text-dim);
-  letter-spacing: 0.02em;
-  line-height: 1.2;
+  letter-spacing: var(--ls-normal);
+  line-height: var(--lh-snug);
   white-space: nowrap;
   margin-left: auto;
   order: 2;
@@ -571,10 +598,11 @@ footer.is-hidden {
   align-items: center;
   gap: 0.5rem;
   padding-left: 1.5rem;
-  font-size: 12px;
+  font-size: var(--fs-meta);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-caps);
+  line-height: var(--lh-snug);
   color: var(--text-dim);
 }
 
@@ -609,10 +637,11 @@ body {
 }
 
 .footer-link {
-  font-size: 12px;
+  font-size: var(--fs-meta);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-caps);
+  line-height: var(--lh-snug);
   color: var(--text);
   text-decoration: none;
   display: flex;
@@ -626,9 +655,10 @@ body {
 }
 
 .footer-handle {
-  font-size: 12px;
+  font-size: var(--fs-meta);
   color: var(--text-dim);
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-caps);
+  line-height: var(--lh-snug);
   text-transform: uppercase;
 }
 
@@ -637,9 +667,10 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0 2rem;
-  font-size: 13px;
+  font-size: var(--fs-ui);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--ls-caps);
+  line-height: var(--lh-snug);
   text-transform: uppercase;
   text-decoration: none;
   background-color: var(--text);
@@ -680,8 +711,6 @@ body {
   }
 
   .intro-name {
-    font-size: 15px;
-    line-height: 1.05;
     margin-bottom: 0;
   }
 
@@ -689,19 +718,14 @@ body {
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    font-size: 11px;
+    font-size: var(--fs-meta);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--ls-normal);
     color: var(--text-dim);
-    letter-spacing: 0.02em;
   }
 
   .location-flag {
-    font-size: 12px;
     line-height: 1;
-  }
-
-  .intro-subtitle {
-    font-size: 15px;
-    letter-spacing: 0em;
   }
 
   .profile-mobile {
@@ -709,7 +733,7 @@ body {
     width: 64px;
     height: 64px;
     object-fit: cover;
-    border: 1.5px solid #0a0a0a;
+    border: 1.5px solid var(--text);
     border-radius: 4px;
   }
 
@@ -734,19 +758,16 @@ body {
   }
 
   .item-company {
-    font-size: 13px;
     flex: none;
     order: 2;
   }
 
   .item-role {
-    font-size: 14px;
     flex: none;
     order: 1;
   }
 
   .item-period {
-    font-size: 10px;
     order: 3;
     margin-left: 0;
     align-self: flex-start;
@@ -760,12 +781,17 @@ body {
 
 /* ── Desktop-only adjustments ────────────────── */
 @media (min-width: 1025px) {
-  .intro-name {
-    font-size: 36px;
+  /* Responsive steps of the typescale — the only place sizes change. */
+  :root {
+    --fs-display: 40px;
+    --fs-lead: 16px;
+    --fs-body: 16px;
+    --fs-meta: 13px;
   }
 
-  .intro-subtitle {
-    font-size: 18px;
+  /* Negative tracking earns its keep only at display size. */
+  .intro-name {
+    letter-spacing: var(--ls-tight);
   }
 
   .stack-icon svg {
