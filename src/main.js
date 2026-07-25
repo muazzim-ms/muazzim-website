@@ -135,10 +135,6 @@ lazyImages.forEach((img) => imageObserver.observe(img))
 // ── FigJam-style cursors on the Works CTA tile ────
 const ctaTile = document.getElementById('works-cta')
 
-// Exposed for the ?debug readout below.
-let ctaInView = false
-let ctaProgress = () => 0
-
 if (ctaTile) {
   const cursors = gsap.utils.toArray('.wc-cursor', ctaTile)
   const nameTag = ctaTile.querySelector('.wc-name')
@@ -200,7 +196,7 @@ if (ctaTile) {
   // Nothing about the page's scroll geometry is cached, so late-loading
   // images or a collapsing URL bar cannot leave the animation measuring
   // against a layout that no longer exists.
-  ctaProgress = () => {
+  function ctaProgress() {
     const r = ctaTile.getBoundingClientRect()
     const vh = window.innerHeight
     const from = vh // 0% — tile top level with the bottom of the screen
@@ -212,6 +208,7 @@ if (ctaTile) {
 
   let shown = 0
   let running = false
+  let inView = false
 
   function frame() {
     const target = ctaProgress()
@@ -222,7 +219,7 @@ if (ctaTile) {
     tl.progress(shown)
     setChatting(target > 0.995)
 
-    if (ctaInView || shown !== target) requestAnimationFrame(frame)
+    if (inView || shown !== target) requestAnimationFrame(frame)
     else running = false
   }
 
@@ -230,8 +227,8 @@ if (ctaTile) {
   // animation is, so its threshold cannot desynchronise from the visuals.
   const ctaObserver = new IntersectionObserver(
     ([entry]) => {
-      ctaInView = entry.isIntersecting
-      if (ctaInView && !running) {
+      inView = entry.isIntersecting
+      if (inView && !running) {
         running = true
         requestAnimationFrame(frame)
       }
@@ -271,52 +268,4 @@ if (profileMobile && getComputedStyle(profileMobile).display !== 'none') {
     { opacity: 0, y: 20 },
     { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }
   )
-}
-
-// ── TEMPORARY: on-device scroll diagnostics, opt in with ?debug ────
-// Diagnosing why the scroll-linked CTA cursors behave differently on a real
-// phone than under emulation. Delete this block once that is settled.
-if (ctaTile && new URLSearchParams(location.search).has('debug')) {
-  const panel = document.createElement('pre')
-  panel.style.cssText = [
-    'position:fixed', 'top:0', 'left:0', 'right:0', 'z-index:9999',
-    'margin:0', 'padding:6px 8px', 'background:rgba(0,0,0,.86)', 'color:#0f0',
-    'font:11px/1.35 ui-monospace,Menlo,monospace', 'white-space:pre',
-    'pointer-events:none', 'overflow:hidden',
-  ].join(';')
-  document.body.appendChild(panel)
-
-  // Re-derived rather than reused, so this block stays self-contained.
-  const dbgCursors = document.querySelectorAll('.wc-cursor')
-  const dbgReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-  let scrollEvents = 0
-  let frames = 0
-  window.addEventListener('scroll', () => { scrollEvents++ }, { passive: true })
-
-  const n = (v, d = 2) => (v === undefined || v === null || Number.isNaN(v) ? '—' : Number(v).toFixed(d))
-  const cursorLine = (i) => {
-    const c = dbgCursors[i]
-    if (!c) return `c${i} —`
-    const m = new DOMMatrix(getComputedStyle(c).transform)
-    return `c${i} op ${n(getComputedStyle(c).opacity)} x ${Math.round(m.m41)} y ${Math.round(m.m42)}`
-  }
-
-  function tick() {
-    frames++
-    const r = ctaTile.getBoundingClientRect()
-    const vv = window.visualViewport
-    panel.textContent = [
-      `gsap ${gsap.version}  inView ${ctaInView ? 1 : 0}  reduceMotion ${dbgReduceMotion ? 1 : 0}`,
-      `progress ${n(ctaProgress(), 3)}`,
-      `scrollY ${Math.round(window.scrollY)}  docH ${document.documentElement.scrollHeight}`,
-      `vh ${window.innerHeight}  vv ${vv ? Math.round(vv.height) : '—'}`,
-      `tile top ${Math.round(r.top)}  bottom ${Math.round(r.bottom)}  h ${Math.round(r.height)}`,
-      cursorLine(0),
-      cursorLine(2),
-      `scrollEvts ${scrollEvents}  frames ${frames}`,
-    ].join('\n')
-    requestAnimationFrame(tick)
-  }
-  requestAnimationFrame(tick)
 }
