@@ -363,6 +363,7 @@ main {
 }
 
 .work-item-cta {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -389,7 +390,7 @@ main {
   color: var(--text);
 }
 
-.work-item-cta span {
+.work-item-cta .cta-text {
   font-size: var(--fs-body);
   line-height: var(--lh-snug);
   letter-spacing: var(--ls-normal);
@@ -398,6 +399,77 @@ main {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
+}
+
+/* ── FigJam-style collaborator cursors on the CTA tile ── */
+.wc-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.wc-cursor {
+  position: absolute;
+  left: var(--wc-x);
+  top: var(--wc-y);
+  display: block;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.wc-arrow {
+  display: block;
+  width: 15px;
+  height: 17px;
+  color: var(--wc-color);
+}
+
+/* Both the name chip and the chat bubble sit at the same anchor just below
+   the arrow tip, so swapping one for the other reads as a morph. */
+.wc-tag {
+  position: absolute;
+  left: 11px;
+  top: 13px;
+  padding: 2px 7px;
+  background-color: var(--wc-color);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: var(--ls-caps);
+  line-height: 1.5;
+  white-space: nowrap;
+  border-radius: 3px;
+  transform-origin: 0 0;
+}
+
+.wc-bubble {
+  opacity: 0;
+  padding: 3px 9px;
+  border-radius: 3px 11px 11px 11px;
+  letter-spacing: var(--ls-normal);
+}
+
+.wc-caret {
+  display: inline-block;
+  width: 1px;
+  height: 9px;
+  margin-left: 2px;
+  vertical-align: -1px;
+  background-color: #fff;
+  animation: wc-blink 1s steps(1) infinite;
+}
+
+@keyframes wc-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wc-caret {
+    animation: none;
+  }
 }
 
 /* ── Single-page sections ────────────────────── */
@@ -810,6 +882,11 @@ body {
 
   .works-grid {
     grid-template-columns: 1fr;
+  }
+
+  .footer-cta {
+    flex: 0 0 50%;
+    padding: 0;
   }
 }
 
