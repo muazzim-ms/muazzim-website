@@ -64,7 +64,7 @@ body {
   padding: 2rem 2rem;
   max-width: 800px;
   margin-inline: auto;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   position: relative;
 }
 
@@ -80,7 +80,7 @@ header {
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   color: var(--text);
   text-decoration: none;
 }
@@ -104,7 +104,7 @@ header {
 }
 
 .site-logo img {
-  height: 48px;
+  height: 40px;
   width: auto;
   display: block;
 }
@@ -132,6 +132,14 @@ header {
   position: relative;
   display: inline-block;
   cursor: default;
+}
+
+.intro-header {
+  display: block;
+}
+
+.intro-location {
+  display: none;
 }
 
 .profile-mobile {
@@ -181,7 +189,7 @@ header {
 .intro-subtitle {
   font-size: 24px;
   color: var(--text-dim);
-  letter-spacing: 0.04em;
+  letter-spacing: 0em;
   max-width: 58ch;
 }
 
@@ -242,7 +250,7 @@ main {
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   color: var(--text-dim);
   padding: 0;
   cursor: pointer;
@@ -324,7 +332,7 @@ main {
 
 .work-item-cta span {
   font-size: 18px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   max-width: 24ch;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -345,7 +353,7 @@ main {
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   color: var(--text-dim);
   padding-bottom: 0.75rem;
   margin-bottom: 1.25rem;
@@ -374,7 +382,7 @@ main {
   align-items: center;
   gap: 0.5rem;
   font-size: 13px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
 }
 
 .contact-email {
@@ -383,7 +391,7 @@ main {
   gap: 0.5rem;
   margin-top: 0.85rem;
   font-size: 13px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   color: var(--text-dim);
 }
 
@@ -410,7 +418,7 @@ main {
 .copy-feedback {
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   color: var(--text-dim);
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -501,7 +509,7 @@ a.experience-item:hover .item-logo-fallback {
 .item-company {
   font-size: 17px;
   font-weight: 400;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   line-height: 1.2;
   color: var(--text-dim);
   order: 3;
@@ -516,7 +524,7 @@ a.experience-item:hover .item-logo-fallback {
 .item-role {
   font-size: 17px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   color: var(--text);
   line-height: 1.2;
   flex-shrink: 0;
@@ -527,7 +535,7 @@ a.experience-item:hover .item-logo-fallback {
   font-size: 15px;
   font-weight: 400;
   color: var(--text-dim);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   line-height: 1.2;
   white-space: nowrap;
   margin-left: auto;
@@ -566,7 +574,7 @@ footer.is-hidden {
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   color: var(--text-dim);
 }
 
@@ -604,7 +612,7 @@ body {
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   color: var(--text);
   text-decoration: none;
   display: flex;
@@ -620,7 +628,7 @@ body {
 .footer-handle {
   font-size: 12px;
   color: var(--text-dim);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -631,7 +639,7 @@ body {
   padding: 0 2rem;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   text-decoration: none;
   background-color: var(--text);
@@ -658,23 +666,51 @@ body {
     margin-bottom: 3rem;
   }
 
+  .intro-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .intro-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
   .intro-name {
-    font-size: 22px;
+    font-size: 15px;
     line-height: 1.05;
+    margin-bottom: 0;
+  }
+
+  .intro-location {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+  }
+
+  .location-flag {
+    font-size: 12px;
+    line-height: 1;
   }
 
   .intro-subtitle {
     font-size: 15px;
-    letter-spacing: 0.02em;
+    letter-spacing: 0em;
   }
 
   .profile-mobile {
     display: block;
-    width: 80px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
     object-fit: cover;
-    border: 3px solid #0a0a0a;
-    margin-bottom: 1rem;
+    border: 1.5px solid #0a0a0a;
+    border-radius: 4px;
   }
 
   #profile-hover {
