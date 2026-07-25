@@ -1,11 +1,4 @@
 import gsap from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
-
-// Mobile browsers fire a resize when the URL bar collapses mid-scroll, which
-// would otherwise refresh every trigger and make scrubbed animations jump.
-ScrollTrigger.config({ ignoreMobileResize: true })
 
 // ── Cursor-following profile photo ───────────────
 const trigger = document.getElementById('name-trigger')
@@ -123,27 +116,13 @@ window.addEventListener('scroll', updateActiveNav, { passive: true })
 updateActiveNav()
 
 // ── Lazy-load work images as they approach the viewport ──
-// Coalesced so a burst of images costs one remeasure, not one each.
-let triggerRefreshTimer = null
-function scheduleTriggerRefresh() {
-  clearTimeout(triggerRefreshTimer)
-  triggerRefreshTimer = setTimeout(() => ScrollTrigger.refresh(), 200)
-}
-window.addEventListener('load', scheduleTriggerRefresh)
-
 const lazyImages = document.querySelectorAll('img[data-src]')
 const imageObserver = new IntersectionObserver(
   (entries, observer) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return
       const img = entry.target
-      img.addEventListener('load', () => {
-        img.classList.add('is-loaded')
-        // Belt and braces behind the CSS aspect-ratio: if page height does
-        // shift as images land, scroll trigger positions must be remeasured
-        // or everything below them fires at the wrong scroll offset.
-        scheduleTriggerRefresh()
-      }, { once: true })
+      img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true })
       img.src = img.dataset.src
       img.removeAttribute('data-src')
       observer.unobserve(img)
@@ -154,7 +133,11 @@ const imageObserver = new IntersectionObserver(
 lazyImages.forEach((img) => imageObserver.observe(img))
 
 // ── FigJam-style cursors on the Works CTA tile ────
-const ctaTile = document.querySelector('.work-item-cta')
+const ctaTile = document.getElementById('works-cta')
+
+// Exposed for the ?debug readout below.
+let ctaInView = false
+let ctaProgress = () => 0
 
 if (ctaTile) {
   const cursors = gsap.utils.toArray('.wc-cursor', ctaTile)
@@ -191,24 +174,9 @@ if (ctaTile) {
     else chatTl.reverse()
   }
 
-  // Scrubbed to scroll position: the cursors travel in as the tile rises
-  // into view and travel back out as it leaves, rather than firing once.
-  // The entry spans the whole range, so it lands exactly as the tile
-  // reaches full view — then the chat bubble follows.
-  const tl = gsap.timeline({
-    defaults: { ease: 'none' },
-    scrollTrigger: {
-      trigger: ctaTile,
-      start: 'top bottom',
-      end: 'bottom 90%',
-      scrub: 0.5,
-      // onUpdate covers stopping right at full view; onLeave covers
-      // scrolling straight past it, where onUpdate no longer fires.
-      onUpdate: (self) => setChatting(self.progress > 0.995),
-      onLeave: () => setChatting(true),
-      onEnterBack: () => setChatting(false),
-    },
-  })
+  // The cursors travel in as the tile rises into view and back out as it
+  // leaves. Held paused and driven by hand below.
+  const tl = gsap.timeline({ paused: true, defaults: { ease: 'none' } })
 
   cursors.forEach((cursor, i) => {
     const at = i * 0.35
@@ -227,6 +195,50 @@ if (ctaTile) {
       )
     }
   })
+
+  // Progress comes from where #works-cta actually is, read fresh every frame.
+  // Nothing about the page's scroll geometry is cached, so late-loading
+  // images or a collapsing URL bar cannot leave the animation measuring
+  // against a layout that no longer exists.
+  ctaProgress = () => {
+    const r = ctaTile.getBoundingClientRect()
+    const vh = window.innerHeight
+    const from = vh // 0% — tile top level with the bottom of the screen
+    const to = vh * 0.9 - r.height // 100% — tile bottom just clear of the footer
+    const span = from - to
+    if (span <= 0) return r.top < vh ? 1 : 0 // viewport too short to fit the tile
+    return gsap.utils.clamp(0, 1, (from - r.top) / span)
+  }
+
+  let shown = 0
+  let running = false
+
+  function frame() {
+    const target = ctaProgress()
+    // Ease toward the target rather than snapping, for the same trailing
+    // feel a scrub gives.
+    shown += (target - shown) * 0.18
+    if (Math.abs(target - shown) < 0.001) shown = target
+    tl.progress(shown)
+    setChatting(target > 0.995)
+
+    if (ctaInView || shown !== target) requestAnimationFrame(frame)
+    else running = false
+  }
+
+  // The observer only gates the loop — it never decides how far along the
+  // animation is, so its threshold cannot desynchronise from the visuals.
+  const ctaObserver = new IntersectionObserver(
+    ([entry]) => {
+      ctaInView = entry.isIntersecting
+      if (ctaInView && !running) {
+        running = true
+        requestAnimationFrame(frame)
+      }
+    },
+    { rootMargin: '150px 0px' }
+  )
+  ctaObserver.observe(ctaTile)
 }
 
 // ── Sticky tabs: reveal mini logo once pinned ─────
@@ -292,20 +304,17 @@ if (ctaTile && new URLSearchParams(location.search).has('debug')) {
 
   function tick() {
     frames++
-    const st = ScrollTrigger.getAll().find((t) => t.trigger === ctaTile)
     const r = ctaTile.getBoundingClientRect()
     const vv = window.visualViewport
     panel.textContent = [
-      `gsap ${gsap.version} ST ${ScrollTrigger.version} touch=${ScrollTrigger.isTouch} triggers=${ScrollTrigger.getAll().length}`,
-      st
-        ? `progress ${n(st.progress, 3)}  start ${Math.round(st.start)}  end ${Math.round(st.end)}`
-        : 'NO SCROLLTRIGGER FOR TILE',
-      `scrollY ${Math.round(window.scrollY)}  maxScroll ${Math.round(ScrollTrigger.maxScroll(window))}`,
-      `docH ${document.documentElement.scrollHeight}  vh ${window.innerHeight}  vv ${vv ? Math.round(vv.height) : '—'}`,
+      `gsap ${gsap.version}  inView ${ctaInView ? 1 : 0}  reduceMotion ${dbgReduceMotion ? 1 : 0}`,
+      `progress ${n(ctaProgress(), 3)}`,
+      `scrollY ${Math.round(window.scrollY)}  docH ${document.documentElement.scrollHeight}`,
+      `vh ${window.innerHeight}  vv ${vv ? Math.round(vv.height) : '—'}`,
       `tile top ${Math.round(r.top)}  bottom ${Math.round(r.bottom)}  h ${Math.round(r.height)}`,
       cursorLine(0),
       cursorLine(2),
-      `scrollEvts ${scrollEvents}  frames ${frames}  reduceMotion ${dbgReduceMotion ? 1 : 0}`,
+      `scrollEvts ${scrollEvents}  frames ${frames}`,
     ].join('\n')
     requestAnimationFrame(tick)
   }
