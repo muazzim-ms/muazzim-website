@@ -1,7 +1,6 @@
 /* Space Mono (previous font) — kept commented for easy manual revert
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 */
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@700;900&family=Atkinson+Hyperlegible:wght@400&display=swap');
 @font-face {
   font-family: 'Monaspace Radon';
   font-style: normal;
@@ -19,8 +18,6 @@
 @theme {
   /* --font-mono: 'Space Mono', 'Courier New', monospace; */
   --font-mono: 'Monaspace Radon', 'Courier New', monospace;
-  --font-display: 'Archivo', sans-serif;
-  --font-body: 'Atkinson Hyperlegible', sans-serif;
 }
 
 :root {
@@ -143,9 +140,8 @@ header {
 }
 
 .intro-name {
-  font-family: var(--font-display);
   font-size: var(--fs-display);
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: var(--ls-normal);
   line-height: var(--lh-tight);
   text-transform: none;
@@ -209,7 +205,6 @@ header {
 }
 
 .intro-subtitle {
-  font-family: var(--font-body);
   font-size: var(--fs-lead);
   color: var(--text-dim);
   line-height: var(--lh-relaxed);
@@ -358,7 +353,6 @@ main {
 }
 
 .work-item-cta span {
-  font-family: var(--font-body);
   font-size: var(--fs-body);
   line-height: var(--lh-snug);
   letter-spacing: var(--ls-normal);
