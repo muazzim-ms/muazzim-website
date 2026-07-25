@@ -246,3 +246,54 @@ if (profileMobile && getComputedStyle(profileMobile).display !== 'none') {
     { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }
   )
 }
+
+// ── TEMPORARY: on-device scroll diagnostics, opt in with ?debug ────
+// Diagnosing why the scroll-linked CTA cursors behave differently on a real
+// phone than under emulation. Delete this block once that is settled.
+if (ctaTile && new URLSearchParams(location.search).has('debug')) {
+  const panel = document.createElement('pre')
+  panel.style.cssText = [
+    'position:fixed', 'top:0', 'left:0', 'right:0', 'z-index:9999',
+    'margin:0', 'padding:6px 8px', 'background:rgba(0,0,0,.86)', 'color:#0f0',
+    'font:11px/1.35 ui-monospace,Menlo,monospace', 'white-space:pre',
+    'pointer-events:none', 'overflow:hidden',
+  ].join(';')
+  document.body.appendChild(panel)
+
+  // Re-derived rather than reused, so this block stays self-contained.
+  const dbgCursors = document.querySelectorAll('.wc-cursor')
+  const dbgReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  let scrollEvents = 0
+  let frames = 0
+  window.addEventListener('scroll', () => { scrollEvents++ }, { passive: true })
+
+  const n = (v, d = 2) => (v === undefined || v === null || Number.isNaN(v) ? '—' : Number(v).toFixed(d))
+  const cursorLine = (i) => {
+    const c = dbgCursors[i]
+    if (!c) return `c${i} —`
+    const m = new DOMMatrix(getComputedStyle(c).transform)
+    return `c${i} op ${n(getComputedStyle(c).opacity)} x ${Math.round(m.m41)} y ${Math.round(m.m42)}`
+  }
+
+  function tick() {
+    frames++
+    const st = ScrollTrigger.getAll().find((t) => t.trigger === ctaTile)
+    const r = ctaTile.getBoundingClientRect()
+    const vv = window.visualViewport
+    panel.textContent = [
+      `gsap ${gsap.version} ST ${ScrollTrigger.version} touch=${ScrollTrigger.isTouch} triggers=${ScrollTrigger.getAll().length}`,
+      st
+        ? `progress ${n(st.progress, 3)}  start ${Math.round(st.start)}  end ${Math.round(st.end)}`
+        : 'NO SCROLLTRIGGER FOR TILE',
+      `scrollY ${Math.round(window.scrollY)}  maxScroll ${Math.round(ScrollTrigger.maxScroll(window))}`,
+      `docH ${document.documentElement.scrollHeight}  vh ${window.innerHeight}  vv ${vv ? Math.round(vv.height) : '—'}`,
+      `tile top ${Math.round(r.top)}  bottom ${Math.round(r.bottom)}  h ${Math.round(r.height)}`,
+      cursorLine(0),
+      cursorLine(2),
+      `scrollEvts ${scrollEvents}  frames ${frames}  reduceMotion ${dbgReduceMotion ? 1 : 0}`,
+    ].join('\n')
+    requestAnimationFrame(tick)
+  }
+  requestAnimationFrame(tick)
+}
