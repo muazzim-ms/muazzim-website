@@ -134,6 +134,14 @@ header {
   cursor: default;
 }
 
+.intro-header {
+  display: block;
+}
+
+.intro-location {
+  display: none;
+}
+
 .profile-mobile {
   display: none;
 }
@@ -183,6 +191,10 @@ header {
   color: var(--text-dim);
   letter-spacing: 0.04em;
   max-width: 58ch;
+}
+
+.subtitle-gap {
+  display: none;
 }
 
 /* ── Main content ────────────────────────────── */
@@ -658,14 +670,46 @@ body {
     margin-bottom: 3rem;
   }
 
+  .intro-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .intro-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
   .intro-name {
-    font-size: 22px;
+    font-size: 13px;
     line-height: 1.05;
+    margin-bottom: 0;
+  }
+
+  .intro-location {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 13px;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+  }
+
+  .location-flag {
+    font-size: 14px;
+    line-height: 1;
   }
 
   .intro-subtitle {
     font-size: 15px;
     letter-spacing: 0.02em;
+  }
+
+  .subtitle-gap {
+    display: initial;
   }
 
   .profile-mobile {
@@ -674,7 +718,7 @@ body {
     height: 80px;
     object-fit: cover;
     border: 3px solid #0a0a0a;
-    margin-bottom: 1rem;
+    border-radius: 14px;
   }
 
   #profile-hover {
