@@ -73,17 +73,25 @@ if (emailCopy) {
 // ── Entrance animations ───────────────────────────
 const items = gsap.utils.toArray('.experience-item')
 
+// The links rather than the .list-header bar itself: that bar is sticky and
+// its is-stuck check reads getBoundingClientRect().top, which a transform
+// would offset. .tabs-logo stays out of it too — its opacity belongs to the
+// .is-stuck CSS, and an inline value here would pin it visible.
+const tabs = gsap.utils.toArray('.list-header .tab-btn, .list-header .tab-divider')
+
 // Pre-hide everything before animating
-gsap.set(['.site-logo', '.intro-name', '.intro-subtitle', ...items, 'footer'], {
-  opacity: 0,
-  y: 20,
-})
+gsap.set(
+  ['.site-logo', '.intro-name', '.intro-location', '.intro-subtitle', ...tabs, ...items, 'footer'],
+  { opacity: 0, y: 20 }
+)
 
 const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
 tl.to('.site-logo', { opacity: 1, y: 0, duration: 0.5 })
   .to('.intro-name', { opacity: 1, y: 0, duration: 0.7 }, '-=0.2')
-  .to('.intro-subtitle', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+  .to('.intro-location', { opacity: 1, y: 0, duration: 0.5 }, '-=0.45')
+  .to('.intro-subtitle', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3')
+  .to(tabs, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, clearProps: 'transform' }, '-=0.3')
   .to(items, { opacity: 1, y: 0, duration: 0.5, stagger: 0.07, clearProps: 'transform' }, '-=0.3')
   .to('footer', { opacity: 1, y: 0, duration: 0.5, clearProps: 'transform' }, '-=0.2')
 
