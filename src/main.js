@@ -132,6 +132,90 @@ const imageObserver = new IntersectionObserver(
 )
 lazyImages.forEach((img) => imageObserver.observe(img))
 
+// ── FigJam-style cursors on the Works CTA tile ────
+const ctaTile = document.querySelector('.work-item-cta')
+
+if (ctaTile) {
+  const cursors = gsap.utils.toArray('.wc-cursor', ctaTile)
+  const nameTag = ctaTile.querySelector('.wc-name')
+  const bubble = ctaTile.querySelector('.wc-bubble')
+  const typedEl = ctaTile.querySelector('.wc-typed')
+  const message = 'Love this!'
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  let tl = null
+  let isIn = false
+
+  function resetCursors() {
+    gsap.set(cursors, { opacity: 0, scale: 1 })
+    gsap.set(nameTag, { opacity: 1, scale: 1 })
+    gsap.set(bubble, { opacity: 0, scale: 0.9 })
+    typedEl.textContent = ''
+  }
+
+  function enter() {
+    tl?.kill()
+    // Let the tile settle in view for a beat before anyone "arrives".
+    tl = gsap.timeline({ delay: 1.5, defaults: { ease: 'power3.out' } })
+
+    cursors.forEach((cursor, i) => {
+      tl.fromTo(
+        cursor,
+        { opacity: 0, x: Number(cursor.dataset.fromX), y: Number(cursor.dataset.fromY) },
+        { opacity: 1, x: 0, y: 0, duration: 0.7 },
+        i * 0.25
+      )
+    })
+
+    // Muazzim starts typing: the name chip gives way to a chat bubble.
+    const typing = { n: 0 }
+    tl.to(nameTag, { opacity: 0, scale: 0.9, duration: 0.2, ease: 'power2.in' }, '+=0.7')
+      .to(bubble, { opacity: 1, scale: 1, duration: 0.28, ease: 'back.out(2)' }, '<')
+      .to(typing, {
+        n: message.length,
+        duration: 0.9,
+        ease: 'none',
+        onUpdate: () => {
+          typedEl.textContent = message.slice(0, Math.round(typing.n))
+        },
+      }, '<0.12')
+  }
+
+  function exit() {
+    tl?.kill()
+    tl = gsap.timeline({
+      defaults: { ease: 'power2.in' },
+      onComplete: resetCursors,
+    })
+    tl.to(cursors, { opacity: 0, scale: 0.8, duration: 0.35, stagger: 0.06 })
+  }
+
+  resetCursors()
+
+  const ctaObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting === isIn) return
+        isIn = entry.isIntersecting
+
+        if (reduceMotion) {
+          // No travel, no typing — just present or absent.
+          gsap.set(cursors, { opacity: isIn ? 1 : 0, x: 0, y: 0 })
+          gsap.set(nameTag, { opacity: 0 })
+          gsap.set(bubble, { opacity: isIn ? 1 : 0, scale: 1 })
+          typedEl.textContent = isIn ? message : ''
+          return
+        }
+
+        if (isIn) enter()
+        else exit()
+      })
+    },
+    { threshold: 0.35 }
+  )
+  ctaObserver.observe(ctaTile)
+}
+
 // ── Sticky tabs: reveal mini logo once pinned ─────
 const listHeader = document.querySelector('.list-header')
 
