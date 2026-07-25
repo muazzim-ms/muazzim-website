@@ -811,6 +811,11 @@ body {
   .works-grid {
     grid-template-columns: 1fr;
   }
+
+  .footer-cta {
+    flex: 0 0 50%;
+    padding: 0;
+  }
 }
 
 /* ── Desktop-only adjustments ────────────────── */
