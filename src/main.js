@@ -123,13 +123,27 @@ window.addEventListener('scroll', updateActiveNav, { passive: true })
 updateActiveNav()
 
 // ── Lazy-load work images as they approach the viewport ──
+// Coalesced so a burst of images costs one remeasure, not one each.
+let triggerRefreshTimer = null
+function scheduleTriggerRefresh() {
+  clearTimeout(triggerRefreshTimer)
+  triggerRefreshTimer = setTimeout(() => ScrollTrigger.refresh(), 200)
+}
+window.addEventListener('load', scheduleTriggerRefresh)
+
 const lazyImages = document.querySelectorAll('img[data-src]')
 const imageObserver = new IntersectionObserver(
   (entries, observer) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return
       const img = entry.target
-      img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true })
+      img.addEventListener('load', () => {
+        img.classList.add('is-loaded')
+        // Belt and braces behind the CSS aspect-ratio: if page height does
+        // shift as images land, scroll trigger positions must be remeasured
+        // or everything below them fires at the wrong scroll offset.
+        scheduleTriggerRefresh()
+      }, { once: true })
       img.src = img.dataset.src
       img.removeAttribute('data-src')
       observer.unobserve(img)
