@@ -153,7 +153,7 @@ if (ctaTile) {
 
   gsap.set(bubble, { opacity: 0 })
 
-  // Muazzim starts typing: the name chip gives way to a chat bubble. Plays
+  // Firdaus starts typing: the name chip gives way to a chat bubble. Plays
   // once the cursors have all landed, so it is not scrubbed with them.
   const typing = { n: 0 }
   const chatTl = gsap.timeline({ paused: true })
@@ -225,7 +225,10 @@ if (ctaTile) {
     shown += (target - shown) * 0.18
     if (Math.abs(target - shown) < 0.001) shown = target
     tl.progress(shown)
-    setChatting(target > 0.995)
+    // Gate on the eased, on-screen position rather than the raw scroll
+    // target — cursors can still be travelling toward target while shown
+    // lags behind, and the chat should only begin once they've landed.
+    setChatting(shown > 0.995)
 
     if (inView || shown !== target) requestAnimationFrame(frame)
     else running = false
