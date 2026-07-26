@@ -403,7 +403,7 @@ main {
 }
 
 .work-item-cta .cta-text {
-  font-size: var(--fs-body);
+  font-size: 16px;
   line-height: var(--lh-snug);
   letter-spacing: var(--ls-normal);
   max-width: 24ch;
