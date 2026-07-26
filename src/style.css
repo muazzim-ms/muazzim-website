@@ -444,7 +444,11 @@ main {
   position: absolute;
   left: 11px;
   top: 13px;
-  padding: 2px 7px;
+  height: 19px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 7px;
   background-color: var(--wc-color);
   color: #fff;
   font-size: 10px;
@@ -458,7 +462,8 @@ main {
 
 .wc-bubble {
   opacity: 0;
-  padding: 3px 9px;
+  height: 38px;
+  padding: 0 9px;
   border-radius: 3px 11px 11px 11px;
   letter-spacing: var(--ls-normal);
 }
