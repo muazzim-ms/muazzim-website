@@ -25,6 +25,7 @@
   --text: #ffffff;
   --text-dim: rgba(255, 255, 255, 0.6);
   --border: rgba(255, 255, 255, 0.1);
+  --success: #4ade80;
 
   /* Typescale — 1.25 ladder anchored at 16px: 11 · 13 · 16 · 20 · 40.
      Mobile values are the default; the 1025px query below reassigns the
@@ -49,6 +50,7 @@
   --text: #0a0a0a;
   --text-dim: rgba(0, 0, 0, 0.6);
   --border: rgba(0, 0, 0, 0.1);
+  --success: #15803d;
 }
 
 * {
@@ -723,7 +725,7 @@ a.experience-item:hover .item-logo-fallback {
   font-weight: 400;
   letter-spacing: var(--ls-normal);
   line-height: var(--lh-snug);
-  color: #22c55e;
+  color: var(--success);
   white-space: nowrap;
   flex-shrink: 0;
   margin-left: auto;
