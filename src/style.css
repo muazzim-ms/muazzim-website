@@ -720,9 +720,8 @@ a.experience-item:hover .item-logo-fallback {
   align-items: center;
   gap: 0.3rem;
   font-size: var(--fs-meta);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: var(--ls-caps);
+  font-weight: 400;
+  letter-spacing: var(--ls-normal);
   line-height: var(--lh-snug);
   color: #22c55e;
   white-space: nowrap;
