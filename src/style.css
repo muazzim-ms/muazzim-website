@@ -949,7 +949,8 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: 0.75rem 0.75rem;
+    column-gap: 0.75rem;
+    row-gap: 0.25rem;
   }
 
   .works-grid {
