@@ -695,6 +695,54 @@ a.experience-item:hover .item-logo-fallback {
   order: 2;
 }
 
+.item-name {
+  font-size: var(--fs-body);
+  font-weight: 700;
+  letter-spacing: var(--ls-normal);
+  color: var(--text);
+  line-height: var(--lh-snug);
+  flex-shrink: 0;
+  order: 1;
+}
+
+.item-description {
+  font-size: var(--fs-body);
+  font-weight: 400;
+  letter-spacing: var(--ls-normal);
+  line-height: var(--lh-snug);
+  color: var(--text-dim);
+  order: 3;
+  flex-basis: 100%;
+}
+
+.item-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  line-height: var(--lh-snug);
+  color: #22c55e;
+  background: color-mix(in srgb, #22c55e 12%, transparent);
+  border: 1px solid color-mix(in srgb, #22c55e 35%, transparent);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: auto;
+  order: 2;
+}
+
+.item-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  flex-shrink: 0;
+}
+
 /* ── Footer ──────────────────────────────────── */
 footer {
   display: flex;
@@ -895,6 +943,13 @@ body {
     margin-left: 0;
     align-self: flex-start;
     text-align: left;
+  }
+
+  .side-quest-text.item-text {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.75rem 0.75rem;
   }
 
   .works-grid {
